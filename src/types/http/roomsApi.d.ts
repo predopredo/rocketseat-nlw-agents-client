@@ -1,9 +1,11 @@
-type GetRoomsApiResponse = Array<{
+interface Room {
   id: string
   name: string
   questionsCount: number
   createdAt: string
-}>
+}
+
+type GetRoomsApiResponse = Room[]
 
 interface CreateRoomApiRequest {
   name: string
