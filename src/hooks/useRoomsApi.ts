@@ -13,7 +13,7 @@ export const useRoomsApi = () => {
   })
 
   const createRoom = useMutation({
-    mutationFn: async (data: CreateRoomRequest) => {
+    mutationFn: async (data: CreateRoomApiRequest) => {
       const response = await fetch('http://localhost:3333/rooms', {
         method: 'POST',
         headers: {
@@ -22,7 +22,7 @@ export const useRoomsApi = () => {
         body: JSON.stringify(data),
       })
 
-      return response.json() as Promise<CreateRoomResponse>
+      return response.json() as Promise<CreateRoomApiResponse>
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-rooms'] })

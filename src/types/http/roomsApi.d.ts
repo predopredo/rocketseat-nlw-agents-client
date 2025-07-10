@@ -5,11 +5,11 @@ type GetRoomsApiResponse = Array<{
   createdAt: string
 }>
 
-interface CreateRoomRequest {
+interface CreateRoomApiRequest {
   name: string
   description: string
 }
 
-interface CreateRoomResponse {
+interface CreateRoomApiResponse {
   id: string
 }
