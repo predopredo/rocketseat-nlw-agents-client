@@ -24,3 +24,14 @@ export const useCreateRoom = () => {
     },
   }).mutateAsync
 }
+
+export const useUploadRoomAudio = (roomId: string) => {
+  return useMutation({
+    mutationFn: async (audioBlob: Blob) => {
+      const formData = new FormData()
+      formData.append('audio.webm', audioBlob)
+      const response = await api.rooms.uploadAudio(roomId, formData)
+      return response.json()
+    },
+  }).mutateAsync
+}

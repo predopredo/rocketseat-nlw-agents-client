@@ -11,6 +11,11 @@ export const api = {
         },
         body: JSON.stringify(data),
       }),
+    uploadAudio: (roomId: string, data: FormData) =>
+      fetch(`${baseUrl}/rooms/${roomId}/audio`, {
+        method: 'POST',
+        body: data,
+      }),
   },
   questions: {
     get: (roomId: string) => fetch(`${baseUrl}/rooms/${roomId}/questions`),

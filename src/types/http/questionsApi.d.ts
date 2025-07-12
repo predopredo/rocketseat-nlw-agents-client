@@ -8,6 +8,7 @@ interface Question {
 type GetQuestionsApiResponse = Question[]
 
 type CreateQuestionApiRequest = {
+  roomId: string
   question: string
 }
 
