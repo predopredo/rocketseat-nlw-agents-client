@@ -25,9 +25,9 @@ export const useCreateRoom = () => {
   }).mutateAsync
 }
 
-export const useUploadRoomAudio = (roomId: string) => {
+export const useUploadRoomAudio = () => {
   return useMutation({
-    mutationFn: async (audioBlob: Blob) => {
+    mutationFn: async ({ roomId, audioBlob }: UploadRoomAudioApiRequest) => {
       const formData = new FormData()
       formData.append('audio.webm', audioBlob)
       const response = await api.rooms.uploadAudio(roomId, formData)

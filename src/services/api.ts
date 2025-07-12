@@ -19,13 +19,13 @@ export const api = {
   },
   questions: {
     get: (roomId: string) => fetch(`${baseUrl}/rooms/${roomId}/questions`),
-    create: (roomId: string, data: CreateQuestionApiRequest) =>
+    create: (roomId: string, question: string) =>
       fetch(`${baseUrl}/rooms/${roomId}/questions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ question }),
       }),
   },
 }

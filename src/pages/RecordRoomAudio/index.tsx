@@ -11,12 +11,12 @@ export const RecordRoomAudio = () => {
   const { id: roomId } = useParams<AudioRoomRouteParams>()
   const { isRecording, startRecording, stopRecording, audioBlob } =
     useMediaRecorder()
-  const uploadRoomAudio = useUploadRoomAudio(roomId as string)
+  const uploadRoomAudio = useUploadRoomAudio()
 
   const handleStopRecording = async () => {
     stopRecording()
-    if (audioBlob && roomId) {
-      await uploadRoomAudio(audioBlob)
+    if (roomId && audioBlob) {
+      await uploadRoomAudio({ roomId, audioBlob })
     }
   }
 

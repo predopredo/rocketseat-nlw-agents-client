@@ -12,16 +12,16 @@ export const useQuestions = (roomId: string) => {
   })
 }
 
-export const useCreateQuestion = (roomId: string) => {
+export const useCreateQuestion = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (data: CreateQuestionApiRequest) => {
-      const response = await api.questions.create(roomId, data)
+    mutationFn: async ({ roomId, question }: CreateQuestionApiRequest) => {
+      const response = await api.questions.create(roomId, question)
 
       return response.json() as Promise<CreateQuestionApiResponse>
     },
-    onSuccess: () => {
+    onSuccess: (_, { roomId }) => {
       queryClient.invalidateQueries({ queryKey: ['get-questions', roomId] })
     },
   }).mutateAsync

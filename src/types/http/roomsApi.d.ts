@@ -15,3 +15,8 @@ interface CreateRoomApiRequest {
 interface CreateRoomApiResponse {
   id: string
 }
+
+interface UploadRoomAudioApiRequest {
+  roomId: string
+  audioBlob: Blob
+}
