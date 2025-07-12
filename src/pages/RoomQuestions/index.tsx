@@ -1,14 +1,14 @@
 import { ArrowLeft, Radio } from 'lucide-react'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { QuestionForm } from '@/components/QuestionForm'
-import { QuestionList } from '@/components/QuestionList'
 import { Button } from '@/components/ui/button'
+import { QuestionForm } from './components/CreateQuestionForm'
+import { QuestionList } from './components/Questionlist'
 
 type RoomParams = {
   id: string
 }
 
-export function Room() {
+export function RoomQuestions() {
   const params = useParams<RoomParams>()
 
   if (!params.id) {

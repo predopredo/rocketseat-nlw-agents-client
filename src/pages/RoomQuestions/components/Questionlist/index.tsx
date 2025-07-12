@@ -1,5 +1,5 @@
 import { useQuestions } from '@/services/questions'
-import { QuestionItem } from './QuestionItem'
+import { QuestionItem } from './components/QuestionItem'
 
 interface QuestionListProps {
   roomId: string

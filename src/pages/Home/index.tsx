@@ -1,7 +1,7 @@
-import { CreateRoomForm } from '@/components/CreateRoomForm'
-import { RoomList } from '@/components/RoomList'
+import { CreateRoomForm } from './components/CreateroomForm'
+import { RoomList } from './components/Roomlist'
 
-export const CreateRoom = () => {
+export const Home = () => {
   return (
     <div className="min-h-screen px-4 py-8">
       <div className="mx-auto max-w-4xl">
