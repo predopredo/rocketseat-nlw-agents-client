@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button'
@@ -18,8 +19,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
+import { useCreateQuestion } from '@/services/questions'
 
-// Esquema de validação no mesmo arquivo conforme solicitado
 const createQuestionSchema = z.object({
   question: z
     .string()
@@ -34,7 +35,9 @@ interface QuestionFormProps {
   roomId: string
 }
 
-export function QuestionForm({ roomId }: QuestionFormProps) {
+export const QuestionForm = ({ roomId }: QuestionFormProps) => {
+  const createQuestion = useCreateQuestion(roomId)
+
   const form = useForm<CreateQuestionFormData>({
     resolver: zodResolver(createQuestionSchema),
     defaultValues: {
@@ -42,10 +45,13 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
     },
   })
 
-  function handleCreateQuestion(data: CreateQuestionFormData) {
-    // biome-ignore lint/suspicious/noConsole: dev
-    console.log(data, roomId)
-  }
+  const handleCreateQuestion = useCallback(
+    async ({ question }: CreateQuestionFormData) => {
+      await createQuestion({ question })
+      form.reset()
+    },
+    [createQuestion, form]
+  )
 
   return (
     <Card>

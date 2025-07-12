@@ -1,8 +1,7 @@
 import { ArrowRightIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useRoomsApi } from '@/hooks/useRoomsApi'
 import { dayjs } from '@/lib/dayjs'
+import { useRooms } from '@/services/rooms'
 import { Badge } from './ui/badge'
 import {
   Card,
@@ -13,18 +12,7 @@ import {
 } from './ui/card'
 
 export const RoomList = () => {
-  const { getRooms } = useRoomsApi()
-
-  const [rooms, setRooms] = useState<GetRoomsApiResponse>([])
-  const [loading, setLoading] = useState<boolean>(false)
-
-  useEffect(() => {
-    const { data, isLoading } = getRooms
-    if (data) {
-      setRooms(data)
-    }
-    setLoading(isLoading)
-  }, [getRooms])
+  const { data: rooms, isLoading } = useRooms()
 
   return (
     <Card>
@@ -35,7 +23,7 @@ export const RoomList = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
-        {loading && (
+        {isLoading && (
           <p className="text-muted-foreground text-sm">Carregando Salas...</p>
         )}
 
