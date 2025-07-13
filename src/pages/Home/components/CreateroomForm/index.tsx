@@ -34,7 +34,7 @@ const createRoomSchema = z.object({
 type CreateRoomFormData = z.infer<typeof createRoomSchema>
 
 export const CreateRoomForm = () => {
-  const createRoom = useCreateRoom()
+  const { mutateAsync: createRoom } = useCreateRoom()
 
   const createRoomForm = useForm<CreateRoomFormData>({
     resolver: zodResolver(createRoomSchema),

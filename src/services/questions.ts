@@ -8,7 +8,7 @@ export const useQuestions = (roomId: string) => {
       const res = await api.questions.get(roomId)
       return await (res.json() as Promise<GetQuestionsApiResponse>)
     },
-    enabled: !!roomId,
+    enabled: Boolean(roomId),
   })
 }
 
@@ -24,5 +24,5 @@ export const useCreateQuestion = () => {
     onSuccess: (_, { roomId }) => {
       queryClient.invalidateQueries({ queryKey: ['get-questions', roomId] })
     },
-  }).mutateAsync
+  })
 }

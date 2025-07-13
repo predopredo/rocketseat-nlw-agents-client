@@ -22,7 +22,7 @@ export const useCreateRoom = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-rooms'] })
     },
-  }).mutateAsync
+  })
 }
 
 export const useUploadRoomAudio = () => {
@@ -33,5 +33,5 @@ export const useUploadRoomAudio = () => {
       const response = await api.rooms.uploadAudio(roomId, formData)
       return response.json()
     },
-  }).mutateAsync
+  })
 }
