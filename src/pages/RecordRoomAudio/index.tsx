@@ -9,13 +9,12 @@ type AudioRoomRouteParams = {
 
 export const RecordRoomAudio = () => {
   const { id: roomId } = useParams<AudioRoomRouteParams>()
-  const { isRecording, startRecording, stopRecording, audioBlob } =
+  const { isRecording, startRecording, stopRecording, onRecordEnd } =
     useMediaRecorder()
   const { mutateAsync: uploadRoomAudio } = useUploadRoomAudio()
 
-  const handleStopRecording = async () => {
-    stopRecording()
-    if (roomId && audioBlob) {
+  onRecordEnd.current = async (audioBlob) => {
+    if (roomId) {
       await uploadRoomAudio({ roomId, audioBlob })
     }
   }
@@ -26,9 +25,7 @@ export const RecordRoomAudio = () => {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-3">
-      <Button
-        onClick={isRecording ? () => handleStopRecording : startRecording}
-      >
+      <Button onClick={isRecording ? stopRecording : startRecording}>
         {isRecording ? 'Parar gravação' : 'Gravar áudio'}
       </Button>
       <p>{isRecording ? 'Gravando...' : 'Pausado'}</p>

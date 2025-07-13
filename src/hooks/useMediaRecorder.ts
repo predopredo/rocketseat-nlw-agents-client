@@ -9,7 +9,7 @@ const isRecordingSupported =
 export const useMediaRecorder = () => {
   const mediaRecorder = useRef<MediaRecorder | null>(null)
   const [isRecording, setIsRecording] = useState(false)
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null)
+  const onRecordEnd = useRef<((audioBlob: Blob) => void) | null>(null)
 
   const startRecording = async () => {
     if (!isRecordingSupported) {
@@ -33,8 +33,11 @@ export const useMediaRecorder = () => {
     })
 
     mediaRecorder.current.ondataavailable = (event) => {
+      if (!onRecordEnd.current) {
+        throw new Error('onRecordEnd.current is not set')
+      }
       if (event.data.size > 0) {
-        setAudioBlob(event.data)
+        onRecordEnd.current?.(event.data)
       }
     }
 
@@ -60,6 +63,6 @@ export const useMediaRecorder = () => {
     startRecording,
     stopRecording,
     isRecording,
-    audioBlob,
+    onRecordEnd,
   }
 }
