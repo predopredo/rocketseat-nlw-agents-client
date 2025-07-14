@@ -3,6 +3,7 @@ interface Question {
   question: string
   answer: string | null
   createdAt: string
+  isAnswered?: boolean
 }
 
 type GetQuestionsApiResponse = Question[]
@@ -14,4 +15,5 @@ type CreateQuestionApiRequest = {
 
 interface CreateQuestionApiResponse {
   id: string
+  answer: string | null
 }
